@@ -1,1 +1,37 @@
 // Header Code
+.navbar {
+    .navbar-brand{
+        font-size: 30px;
+        font-style: italic;
+    }
+    .navbar-collapse {
+        .nav-link {
+            padding: 0 16px;
+            position: relative;
+            text-align: center;
+            display: flex;
+            color: #000;
+
+            justify-content: center;
+
+            &:hover {
+                &:after {
+
+                    width: 100%;
+                }
+            }
+
+            &:after {
+                content: '';
+                background: #434343;
+                position: absolute;
+                height: 3px;
+                border-radius: 4px;
+                width: 0;
+                bottom: -10px;
+                transition: width .3s;
+            }
+        }
+    }
+
+}

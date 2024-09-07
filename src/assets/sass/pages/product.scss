@@ -1,7 +1,7 @@
 .banner {
     background: url(../../images/mainbanner-bg.jpg) no-repeat #d9cfc3;
     height: 400px;
-
+    margin-bottom: 40px;
     h2 {
         font-size: 48px;
         font-weight: bold;
@@ -17,6 +17,21 @@
 }
 
 .product-list {
+    h4{
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .sorting{
+        align-items: center;
+        
+        select{
+            padding: 10px;
+            border: 1px solid #cfcfcf;
+            border-radius: 4px;
+            margin-left: 4px;
+        }
+        
+    }
     .card {
         border: none;
         margin-bottom: 20px;

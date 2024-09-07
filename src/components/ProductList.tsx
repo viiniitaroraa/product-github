@@ -5,12 +5,22 @@ import { fetchProducts, toggleCategoryFilter, setPriceRangeFilter, setSort, setP
 import Placeholderimg from '../assets/images/mainbanner-bg.jpg';
 import { addToCart } from '../store/cartSlice'; // Import the addToCart action
 import { RootState, AppDispatch } from '../store';
+import Banner from './Banner';
+
+const categories = [
+  'electronics',
+  'jewelery',
+  "men's clothing",
+  "women's clothing"
+  // Add more categories if needed
+];
 
 const ProductList: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const { filteredProducts, status, error, filters, sort, pagination } = useSelector((state: RootState) => state.products);
   const { products } = useSelector((state: RootState) => state.products);
   const [quantityError, setQuantityError] = useState<string | null>(null);
+
   useEffect(() => {
     if (status === 'idle') {
       dispatch(fetchProducts());
@@ -50,123 +60,109 @@ const ProductList: React.FC = () => {
   if (status === 'failed') return <p>{error}</p>;
 
   return (
-    <div className="product-list">
-      <div className="container">
-        <div className="row">
-          <div className="col-3">
-            Filter Section
-            <div>
-              <h3>Category:</h3>
+    <>
+      <Banner />
+      <div className="product-list">
+        <div className="container">
+          <div className="row">
+            <div className="col-3">
+              <h4 className="pt-1 pb-2">Filters:</h4>
+              <div>
 
+                {categories.map((category) => (
+                  <div className="cs-checkbox" key={category}>
+                    <input
+                      type="checkbox"
+                      value={category}
+                      id={category}
+                      checked={filters.categories.includes(category)}
+                      onChange={handleCategoryChange}
+                      className="checkbox-input"
+                    />
+                    <label htmlFor={category} className="checkbox-label"><span>{category.charAt(0).toUpperCase() + category.slice(1)}</span></label>
+                  </div>
+                ))}
+
+
+
+              </div>
               <label>
+                Price Range:
                 <input
-                  type="checkbox"
-                  value="electronics"
-                  checked={filters.categories.includes('electronics')}
-                  onChange={handleCategoryChange}
+                  type="number"
+                  value={filters.minPrice}
+                  onChange={(e) => dispatch(setPriceRangeFilter({ minPrice: Number(e.target.value), maxPrice: filters.maxPrice }))}
                 />
-                Electronics
-              </label>
-              <label>
                 <input
-                  type="checkbox"
-                  value="jewelery"
-                  checked={filters.categories.includes('jewelery')}
-                  onChange={handleCategoryChange}
+                  type="number"
+                  value={filters.maxPrice}
+                  onChange={(e) => dispatch(setPriceRangeFilter({ minPrice: filters.minPrice, maxPrice: Number(e.target.value) }))}
                 />
-                Jewelery
               </label>
-              <label>
-                <input
-                  type="checkbox"
-                  value="men's clothing"
-                  checked={filters.categories.includes("men's clothing")}
-                  onChange={handleCategoryChange}
-                />
-                Men's Clothing
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  value="women's clothing"
-                  checked={filters.categories.includes("women's clothing")}
-                  onChange={handleCategoryChange}
-                />
-                Women's Clothing
-              </label>
+
             </div>
-            <label>
-              Price Range:
-              <input
-                type="number"
-                value={filters.minPrice}
-                onChange={(e) => dispatch(setPriceRangeFilter({ minPrice: Number(e.target.value), maxPrice: filters.maxPrice }))}
-              />
-              <input
-                type="number"
-                value={filters.maxPrice}
-                onChange={(e) => dispatch(setPriceRangeFilter({ minPrice: filters.minPrice, maxPrice: Number(e.target.value) }))}
-              />
-            </label>
+            <div className="col-9">
+              <div className="d-flex justify-content-between align-items-center mb-3">
+                <h4>Trending Products</h4>
+                <div className="sorting d-flex">
+                  {/* <label>
+                  Sort By:
+                </label> */}
+                  <select
+                    value={sort}
+                    onChange={(e) => dispatch(setSort(e.target.value as 'asc' | 'desc' | 'popularity'))}
+                  >
+                    <option value="asc">Price (Low to High)</option>
+                    <option value="desc">Price (High to Low)</option>
+                    <option value="popularity">Popularity</option>
+                  </select>
 
-          </div>
-          <div className="col-9">
-            Product List
-            <div className="sorting">
-              <label>
-                Sort By:
-                <select
-                  value={sort}
-                  onChange={(e) => dispatch(setSort(e.target.value as 'asc' | 'desc' | 'popularity'))}
-                >
-                  <option value="asc">Price (Low to High)</option>
-                  <option value="desc">Price (High to Low)</option>
-                  <option value="popularity">Popularity</option>
-                </select>
-              </label>
-            </div>
-            <div className="row">
-              {filteredProducts.map(product => (
-                <div className="col-4">
-                  <div className="card" key={product.id} title={product.title}>
-                    <Link to={`/product/${product.id}`}>
-                      <img src={product.image ? product.image : Placeholderimg}
-                        alt={product.title} />
-                    </Link>
-                    <div className="card-body">
-                      <h5 className="card-title" >{product.title}</h5>
-                      <p className="card-text">${product.price}</p>
-                      <button className="btn btn-primary sm"
-                        onClick={() => handleAddToCart(product.id, 1)}
-                      >Add to Cart</button>
+                </div>
+              </div>
+              <div className="row">
+                {filteredProducts.map(product => (
+                  <div className="col-4">
+                    <div className="card" key={product.id} title={product.title}>
+                      <Link to={`/product/${product.id}`}>
+                        <img src={product.image ? product.image : Placeholderimg}
+                          alt={product.title} />
+                      </Link>
+                      <div className="card-body">
+                        <h5 className="card-title" >{product.title}</h5>
+                        <p className="card-text">${product.price}</p>
+                        <button className="btn btn-primary sm"
+                          onClick={() => handleAddToCart(product.id, 1)}
+                        >Add to Cart</button>
 
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
 
+            </div>
+          </div>
+          <div>
+          </div>
+          <div>
+            <button
+              disabled={pagination.currentPage === 1}
+              onClick={() => handlePageChange(pagination.currentPage - 1)}
+            >
+              Previous
+            </button>
+            <span>Page {pagination.currentPage} of {Math.ceil(pagination.totalItems / pagination.itemsPerPage)}</span>
+            <button
+              disabled={pagination.currentPage === Math.ceil(pagination.totalItems / pagination.itemsPerPage)}
+              onClick={() => handlePageChange(pagination.currentPage + 1)}
+            >
+              Next
+            </button>
           </div>
         </div>
-        <div>
-        </div>
-        <div>
-          <button
-            disabled={pagination.currentPage === 1}
-            onClick={() => handlePageChange(pagination.currentPage - 1)}
-          >
-            Previous
-          </button>
-          <span>Page {pagination.currentPage} of {Math.ceil(pagination.totalItems / pagination.itemsPerPage)}</span>
-          <button
-            disabled={pagination.currentPage === Math.ceil(pagination.totalItems / pagination.itemsPerPage)}
-            onClick={() => handlePageChange(pagination.currentPage + 1)}
-          >
-            Next
-          </button>
-        </div>
       </div>
-    </div>
+    </>
+
   );
 };
 

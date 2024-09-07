@@ -5,13 +5,11 @@ import ProductList from './components/ProductList';
 import ProductDetail from './components/ProductDetail';
 import Cart from './components/Cart';
 import Header from './components/Header';
-import Banner from './components/Banner';
-
 const App: React.FC = () => {
   return (
     <div className="App">
       <Header/>
-      <Banner/>
+    
       <Routes>
         <Route path="/" element={<ProductList />} />
         <Route path="/cart" element={<Cart />} />

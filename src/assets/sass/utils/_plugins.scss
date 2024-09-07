@@ -1,0 +1,61 @@
+/* Hide the default checkbox */
+.cs-checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .checkbox-label {
+        display: inline-block;
+        position: relative;
+        vertical-align: middle;
+        cursor: pointer;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+
+        span {
+            padding-left: 28px;
+            font-size: 16px;
+        }
+
+        &::before {
+            width: 20px;
+            /* Size of the custom checkbox */
+            height: 20px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            /* Rounded corners */
+            background-color: white;
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 4px;
+            width: 12px;
+            height: 7px;
+            border: solid #ffffff;
+            border-width: 0 0px 3px 3px;
+            transform: rotate(316deg);
+            opacity: 0;
+        }
+    }
+
+    .checkbox-input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+
+        &:checked+.checkbox-label:before {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        &:checked+.checkbox-label::after {
+            opacity: 1;
+        }
+    }
+}
