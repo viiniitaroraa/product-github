@@ -1,0 +1,22 @@
+.btn {
+  text-align: center;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  color: #fff;
+  position: relative;
+  border: 2px solid transparent;
+  border: none;
+  text-align: center;
+  min-width: 172px;
+  padding: 14px;
+  font-family: $Font-Regular;
+
+  &.btn-primary {
+    color: $white;
+    background: $primary-color;
+
+    &:hover {
+      background: #8e72fe;
+    }
+  }
+}
