@@ -89,42 +89,46 @@ const ProductList: React.FC = () => {
 
           <div className="row">
             <div className="col-lg-3">
-              <h4 className="pt-1 pb-2">Filters:</h4>
-              <div>
-
-                {categories.map((category) => (
-                  <div className="cs-checkbox" key={category}>
-                    <input
-                      type="checkbox"
-                      value={category}
-                      id={category}
-                      checked={filters.categories.includes(category)}
-                      onChange={handleCategoryChange}
-                      className="checkbox-input"
-                    />
-                    <label htmlFor={category} className="checkbox-label"><span>{category.charAt(0).toUpperCase() + category.slice(1)}</span></label>
-                  </div>
-                ))}
-              </div>
-              <label>
-                Price Range:</label>
-              <div className="slider-container">
-                <Slider
-                  range
-                  min={0}
-                  max={1000}
-                  value={[filters.minPrice, filters.maxPrice]}
-                  onChange={handlePriceRangeChange}
-
-
-                />
-              </div>
-              <div className="price-range-display">
-                <div className='min'>
-                <span>{filters.minPrice}</span>
+              <div className="sidebar">
+                <h4 className="pt-1 pb-2">Filters:</h4>
+                <div>
+                  <h6>Categories</h6>
+                  {categories.map((category) => (
+                    <div className="cs-checkbox" key={category}>
+                      <input
+                        type="checkbox"
+                        value={category}
+                        id={category}
+                        checked={filters.categories.includes(category)}
+                        onChange={handleCategoryChange}
+                        className="checkbox-input"
+                      />
+                      <label htmlFor={category} className="checkbox-label"><span>{category.charAt(0).toUpperCase() + category.slice(1)}</span></label>
+                    </div>
+                  ))}
                 </div>
-                <div className='max'>
-                <span>{filters.maxPrice}</span>
+                <div>
+                  <h6>Price Range</h6>
+                  <div className="slider-container">
+                    <Slider
+                      range
+                      min={0}
+                      max={1000}
+                      value={[filters.minPrice, filters.maxPrice]}
+                      onChange={handlePriceRangeChange}
+
+
+                    />
+                  </div>
+                  <div className="price-range">
+                    <div className='min'>
+                      <span>{filters.minPrice}</span>
+                    </div>
+                    <div className='max'>
+                      <span>{filters.maxPrice}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
 

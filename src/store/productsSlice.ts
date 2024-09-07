@@ -35,7 +35,7 @@ const initialState: ProductsState = {
   filters: {
     categories: [],
     minPrice: 0,
-    maxPrice: Infinity,
+    maxPrice: 1000,
   },
   sort: 'asc',
   pagination: {
