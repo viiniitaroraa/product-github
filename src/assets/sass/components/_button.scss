@@ -1,13 +1,13 @@
 .btn {
   text-align: center;
   -webkit-border-radius: 8px;
-  border-radius: 8px;
+  border-radius: 6px;
   color: #fff;
   position: relative;
   border: 2px solid transparent;
   border: none;
   text-align: center;
-  min-width: 172px;
+  
   padding: 14px;
   font-family: $Font-Regular;
 
@@ -16,7 +16,11 @@
     background: $primary-color;
 
     &:hover {
-      background: #8e72fe;
+      background: $dark-bg;
     }
+  }
+  &.sm{
+    font-size: 14px;
+    padding: 8px 14px;
   }
 }

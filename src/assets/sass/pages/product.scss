@@ -1,0 +1,66 @@
+.banner {
+    background: url(../../images/mainbanner-bg.jpg) no-repeat #d9cfc3;
+    height: 400px;
+
+    h2 {
+        font-size: 48px;
+        font-weight: bold;
+
+        @media screen and (max-width: 767px) {
+            font-size: 18px;
+        }
+    }
+
+    p {
+        font-size: 20px;
+    }
+}
+
+.product-list {
+    .card {
+        border: none;
+        margin-bottom: 20px;
+        a {
+            position: relative;
+            justify-content: center;
+            display: flex;
+            background: #f3f3f3;
+            overflow: hidden;
+            padding: 18px;
+            height: 370px;
+            align-items: center;
+            border-radius: 2px;
+
+            img {
+                max-width: 100%;
+                max-height: 100%;
+                transition: opacity 0.3s ease;
+                object-fit: cover;
+                border-radius: 8px;
+            }
+        }
+
+        .card-body {
+            padding: 16px 0 10px 0;
+            .card-title {
+                font-size: 14px;
+                font-weight: bold;
+                white-space: nowrap; /* Prevent the text from wrapping to a new line */
+                overflow: hidden;    /* Hide the overflowed text */
+                text-overflow: ellipsis; /* Display ellipsis (...) when text overflows */
+            }
+            .card-text {
+                font-size: 13px;
+            }
+        }
+        button{
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        &:hover button  {
+            visibility: visible;
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {}
