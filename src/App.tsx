@@ -9,7 +9,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <Header/>
-    
+     
       <Routes>
         <Route path="/" element={<ProductList />} />
         <Route path="/cart" element={<Cart />} />

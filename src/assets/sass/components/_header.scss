@@ -33,5 +33,26 @@
             }
         }
     }
+    .navbar-text{
+        img{
+            width: 34px;
+        }
+        position: relative;
+        span{
+            position: absolute;
+            right: -3px;
+            top: 5px;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            text-align: center;
+            color: #fff;
+            background-color: #f57537;
+            font-size: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
 
 }

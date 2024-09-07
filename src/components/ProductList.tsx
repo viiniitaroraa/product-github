@@ -70,9 +70,25 @@ const ProductList: React.FC = () => {
     <>
       <Banner />
       <div className="product-list">
+        <nav className="breadcrumb-container mb-3" aria-label="breadcrumb" >
+          <div className='container'>
+            <ol className="breadcrumb">
+              <li className="breadcrumb-item">
+                <a href="/">Home</a>
+              </li>
+              <li className="breadcrumb-item">
+                <a href="/">Products</a>
+              </li>
+              <li className="breadcrumb-item active" aria-current="page">
+                Fashion
+              </li>
+            </ol>
+          </div>
+        </nav>
         <div className="container">
+
           <div className="row">
-            <div className="col-3">
+            <div className="col-lg-3">
               <h4 className="pt-1 pb-2">Filters:</h4>
               <div>
 
@@ -92,26 +108,30 @@ const ProductList: React.FC = () => {
               </div>
               <label>
                 Price Range:</label>
-                <div className="slider-container">
+              <div className="slider-container">
                 <Slider
-                    range 
-                    min={0}
-                    max={1000}
-                    value={[filters.minPrice, filters.maxPrice]}
-                    onChange={handlePriceRangeChange}
-                   
-                   
-                  />
+                  range
+                  min={0}
+                  max={1000}
+                  value={[filters.minPrice, filters.maxPrice]}
+                  onChange={handlePriceRangeChange}
+
+
+                />
+              </div>
+              <div className="price-range-display">
+                <div className='min'>
+                <span>{filters.minPrice}</span>
                 </div>
-                <div className="price-range-display">
-                  <span>Min Price: ${filters.minPrice}</span>
-                  <span>Max Price: ${filters.maxPrice}</span>
+                <div className='max'>
+                <span>{filters.maxPrice}</span>
                 </div>
-              
+              </div>
+
 
 
             </div>
-            <div className="col-9">
+            <div className="col-lg-9">
               <div className="d-flex justify-content-between align-items-center mb-3">
                 <h4>Trending Products</h4>
                 <div className="sorting d-flex">
@@ -135,27 +155,27 @@ const ProductList: React.FC = () => {
                   <p>No products available in this price range.</p>
                 </div>
               ) : (
-              <div className="row">
-                {filteredProducts.map(product => (
-                  <div className="col-4">
-                    <div className="card" key={product.id} title={product.title}>
-                      <Link to={`/product/${product.id}`}>
-                        <img src={product.image ? product.image : Placeholderimg}
-                          alt={product.title} />
-                      </Link>
-                      <div className="card-body">
-                        <h5 className="card-title" >{product.title}</h5>
-                        <p className="card-text">${product.price}</p>
-                        <button className="btn btn-primary sm"
-                          onClick={() => handleAddToCart(product.id, 1)}
-                        >Add to Cart</button>
+                <div className="row">
+                  {filteredProducts.map(product => (
+                    <div className="col-md-6 col-lg-4">
+                      <div className="card" key={product.id} title={product.title}>
+                        <Link to={`/product/${product.id}`}>
+                          <img src={product.image ? product.image : Placeholderimg}
+                            alt={product.title} />
+                        </Link>
+                        <div className="card-body">
+                          <h5 className="card-title" >{product.title}</h5>
+                          <p className="card-text">${product.price}</p>
+                          <button className="btn btn-primary sm"
+                            onClick={() => handleAddToCart(product.id, 1)}
+                          >Add to Cart</button>
 
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-     )}
+                  ))}
+                </div>
+              )}
             </div>
           </div>
           <div className="pagination pb-3">
