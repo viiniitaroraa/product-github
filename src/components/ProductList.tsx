@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchProducts, toggleCategoryFilter, setPriceRangeFilter, setSort, setPage, filterAndSortProducts } from '../store/productsSlice';
 import Placeholderimg from '../assets/images/mainbanner-bg.jpg';
+import Chevron from '../assets/images/chevron.png';
 import { addToCart } from '../store/cartSlice'; // Import the addToCart action
 import { RootState, AppDispatch } from '../store';
 import Banner from './Banner';
+import Slider from 'rc-slider';
 
 const categories = [
   'electronics',
@@ -56,6 +58,11 @@ const ProductList: React.FC = () => {
     dispatch(setPage(page));
     dispatch(filterAndSortProducts());
   };
+  const handlePriceRangeChange = (value: number | number[]) => {
+    if (Array.isArray(value)) {
+      dispatch(setPriceRangeFilter({ minPrice: value[0], maxPrice: value[1] }));
+    }
+  };
   if (status === 'loading') return <p>Loading...</p>;
   if (status === 'failed') return <p>{error}</p>;
 
@@ -82,23 +89,26 @@ const ProductList: React.FC = () => {
                     <label htmlFor={category} className="checkbox-label"><span>{category.charAt(0).toUpperCase() + category.slice(1)}</span></label>
                   </div>
                 ))}
-
-
-
               </div>
               <label>
-                Price Range:
-                <input
-                  type="number"
-                  value={filters.minPrice}
-                  onChange={(e) => dispatch(setPriceRangeFilter({ minPrice: Number(e.target.value), maxPrice: filters.maxPrice }))}
-                />
-                <input
-                  type="number"
-                  value={filters.maxPrice}
-                  onChange={(e) => dispatch(setPriceRangeFilter({ minPrice: filters.minPrice, maxPrice: Number(e.target.value) }))}
-                />
-              </label>
+                Price Range:</label>
+                <div className="slider-container">
+                <Slider
+                    range 
+                    min={0}
+                    max={1000}
+                    value={[filters.minPrice, filters.maxPrice]}
+                    onChange={handlePriceRangeChange}
+                   
+                   
+                  />
+                </div>
+                <div className="price-range-display">
+                  <span>Min Price: ${filters.minPrice}</span>
+                  <span>Max Price: ${filters.maxPrice}</span>
+                </div>
+              
+
 
             </div>
             <div className="col-9">
@@ -119,6 +129,12 @@ const ProductList: React.FC = () => {
 
                 </div>
               </div>
+              {/* Conditional rendering for products or no results */}
+              {filteredProducts.length === 0 ? (
+                <div className='no-data'>
+                  <p>No products available in this price range.</p>
+                </div>
+              ) : (
               <div className="row">
                 {filteredProducts.map(product => (
                   <div className="col-4">
@@ -139,24 +155,38 @@ const ProductList: React.FC = () => {
                   </div>
                 ))}
               </div>
-
+     )}
             </div>
           </div>
-          <div>
-          </div>
-          <div>
+          <div className="pagination pb-3">
             <button
               disabled={pagination.currentPage === 1}
+              className="prev"
               onClick={() => handlePageChange(pagination.currentPage - 1)}
             >
-              Previous
+              <img src={Chevron} alt="Previous" />
             </button>
-            <span>Page {pagination.currentPage} of {Math.ceil(pagination.totalItems / pagination.itemsPerPage)}</span>
+
+            {/* Page numbers */}
+            {Array.from({ length: Math.ceil(pagination.totalItems / pagination.itemsPerPage) }, (_, index) => {
+              const pageNumber = index + 1;
+              return (
+                <button
+                  key={pageNumber}
+                  className={`page-number ${pagination.currentPage === pageNumber ? 'active' : ''}`}
+                  onClick={() => handlePageChange(pageNumber)}
+                >
+                  {pageNumber}
+                </button>
+              );
+            })}
+
             <button
               disabled={pagination.currentPage === Math.ceil(pagination.totalItems / pagination.itemsPerPage)}
+              className="next"
               onClick={() => handlePageChange(pagination.currentPage + 1)}
             >
-              Next
+              <img src={Chevron} alt="Next" />
             </button>
           </div>
         </div>
