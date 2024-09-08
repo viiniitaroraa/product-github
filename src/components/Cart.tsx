@@ -6,11 +6,9 @@ import { updateQuantity, removeFromCart } from '../store/cartSlice';
 
 const Cart: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
-
   const { items, totalQuantity, totalPrice } = useSelector(
     (state: RootState) => state.cart
   );
-
   const handleQuantityChange = (id: number, quantity: number) => {
     if (quantity > 0) {
       dispatch(updateQuantity({ id, quantity }));
@@ -34,8 +32,6 @@ const Cart: React.FC = () => {
             <p>Your cart is empty</p>
             </div>
         ) : (
-    
-      
         <div className='row'>
           <div className='col-md-8'>
             <ul>

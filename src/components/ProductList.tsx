@@ -15,27 +15,24 @@ const categories = [
   'jewelery',
   "men's clothing",
   "women's clothing"
-  // Add more categories if needed
 ];
 
 const ProductList: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
-  
   const { filteredProducts, status, error, filters, sort, pagination } = useSelector((state: RootState) => state.products);
   const { products } = useSelector((state: RootState) => state.products);
   const [isLoading, setIsLoading] = useState(true)
   const [quantityError, setQuantityError] = useState<string | null>(null);
   const [addedProductId, setAddedProductId] = useState<number | null>(null);
   const [addedProductClass, setAddedProductClass] = useState<number | null>(null);
-
   useEffect(() => {
     setIsLoading(true);
     if (status === 'idle') {
       dispatch(fetchProducts());
     } else if (status === 'loading') {
-      setIsLoading(true); // Set loading while fetching data
+      setIsLoading(true); 
     } else {
-      setIsLoading(false); // Loading complete
+      setIsLoading(false); 
     }
   }, [dispatch, status]);
 
@@ -73,7 +70,6 @@ const ProductList: React.FC = () => {
   if (isLoading) {
     return <Loading />;
   }
-
   if (status === 'failed') {
     return <p>{error}</p>;
   }
@@ -97,7 +93,6 @@ const ProductList: React.FC = () => {
           </div>
         </nav>
         <div className="container">
-
           <div className="row">
             <div className="col-lg-3">
               <div className="sidebar">
@@ -127,8 +122,6 @@ const ProductList: React.FC = () => {
                       max={1000}
                       value={[filters.minPrice, filters.maxPrice]}
                       onChange={handlePriceRangeChange}
-
-
                     />
                   </div>
                   <div className="price-range">
@@ -142,17 +135,11 @@ const ProductList: React.FC = () => {
                   </div>
                 </div>
               </div>
-
-
-
             </div>
             <div className="col-lg-9">
               <div className="d-flex justify-content-between align-items-center mb-3">
                 <h4>Trending Products</h4>
                 <div className="sorting d-flex">
-                  {/* <label>
-                  Sort By:
-                </label> */}
                   <select
                     value={sort}
                     onChange={(e) => dispatch(setSort(e.target.value as 'asc' | 'desc' | 'popularity'))}
@@ -164,7 +151,6 @@ const ProductList: React.FC = () => {
 
                 </div>
               </div>
-              {/* Conditional rendering for products or no results */}
               {filteredProducts.length === 0 ? (
                 <div className='no-data'>
                   <p>No products available in this price range.</p>
@@ -187,7 +173,6 @@ const ProductList: React.FC = () => {
                             onClick={() => handleAddToCart(product.id, 1)}
                           >{addedProductId === product.id ? 'Added' : 'Add to Cart'}</button>
                           </div>
-
                         </div>
                       </div>
                     </div>
@@ -204,8 +189,6 @@ const ProductList: React.FC = () => {
             >
               <img src={Chevron} alt="Previous" />
             </button>
-
-            {/* Page numbers */}
             {Array.from({ length: Math.ceil(pagination.totalItems / pagination.itemsPerPage) }, (_, index) => {
               const pageNumber = index + 1;
               return (
@@ -218,7 +201,6 @@ const ProductList: React.FC = () => {
                 </button>
               );
             })}
-
             <button
               disabled={pagination.currentPage === Math.ceil(pagination.totalItems / pagination.itemsPerPage)}
               className="next"

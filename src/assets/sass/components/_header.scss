@@ -27,14 +27,13 @@
 
             &:hover {
                 &:after {
-
                     width: 100%;
                 }
             }
 
             &:after {
                 content: '';
-                background: #434343;
+                background: $secondary-color;
                 position: absolute;
                 height: 3px;
                 border-radius: 4px;
