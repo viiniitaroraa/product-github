@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { fetchProducts, toggleCategoryFilter, setPriceRangeFilter, setSort, setPage, filterAndSortProducts } from '../store/productsSlice';
 import Placeholderimg from '../assets/images/mainbanner-bg.jpg';
 import Chevron from '../assets/images/chevron.png';
-import { addToCart } from '../store/cartSlice'; // Import the addToCart action
+import { addToCart } from '../store/cartSlice'; 
 import { RootState, AppDispatch } from '../store';
 import Banner from './Banner';
 import Slider from 'rc-slider';

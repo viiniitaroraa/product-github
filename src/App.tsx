@@ -11,7 +11,6 @@ const App: React.FC = () => {
     <div className="App">
       <Header />
       <div className='section'>
-
         <Routes>
           <Route path="/" element={<ProductList />} />
           <Route path="/cart" element={<Cart />} />
