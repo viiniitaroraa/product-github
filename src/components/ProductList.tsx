@@ -22,6 +22,8 @@ const ProductList: React.FC = () => {
   const { filteredProducts, status, error, filters, sort, pagination } = useSelector((state: RootState) => state.products);
   const { products } = useSelector((state: RootState) => state.products);
   const [quantityError, setQuantityError] = useState<string | null>(null);
+  const [addedProductId, setAddedProductId] = useState<number | null>(null);
+  const [addedProductClass, setAddedProductClass] = useState<number | null>(null);
 
   useEffect(() => {
     if (status === 'idle') {
@@ -47,7 +49,15 @@ const ProductList: React.FC = () => {
       const product = products.find(p => p.id === productId);
       if (product) {
         dispatch(addToCart({ ...product, quantity }));
+        setAddedProductId(productId);
+        setAddedProductClass(productId);
         setQuantityError(null); // Clear any previous errors
+
+        // Reset the "Added" text after 2 seconds
+        setTimeout(() => {
+          setAddedProductId(null);
+          setAddedProductClass(null);
+        }, 2000);
       } else {
         setQuantityError('Product not found');
       }
@@ -168,11 +178,14 @@ const ProductList: React.FC = () => {
                             alt={product.title} />
                         </Link>
                         <div className="card-body">
-                          <h5 className="card-title" >{product.title}</h5>
-                          <p className="card-text">${product.price}</p>
-                          <button className="btn btn-primary sm"
+                          <h5 className="card-title truncate" >{product.title}</h5>
+                          <p className="card-text truncate-2">{product.description}</p>
+                          <div className="card-section">
+                            <p>${product.price}</p>
+                          <button className={`btn btn-primary sm ${addedProductClass === product.id ? 'added' : ''}`}
                             onClick={() => handleAddToCart(product.id, 1)}
-                          >Add to Cart</button>
+                          >{addedProductId === product.id ? 'Added' : 'Add to Cart'}</button>
+                          </div>
 
                         </div>
                       </div>
