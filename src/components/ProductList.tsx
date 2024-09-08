@@ -8,6 +8,7 @@ import { addToCart } from '../store/cartSlice'; // Import the addToCart action
 import { RootState, AppDispatch } from '../store';
 import Banner from './Banner';
 import Slider from 'rc-slider';
+import Loading from './loading';
 
 const categories = [
   'electronics',
@@ -19,15 +20,22 @@ const categories = [
 
 const ProductList: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
+  
   const { filteredProducts, status, error, filters, sort, pagination } = useSelector((state: RootState) => state.products);
   const { products } = useSelector((state: RootState) => state.products);
+  const [isLoading, setIsLoading] = useState(true)
   const [quantityError, setQuantityError] = useState<string | null>(null);
   const [addedProductId, setAddedProductId] = useState<number | null>(null);
   const [addedProductClass, setAddedProductClass] = useState<number | null>(null);
 
   useEffect(() => {
+    setIsLoading(true);
     if (status === 'idle') {
       dispatch(fetchProducts());
+    } else if (status === 'loading') {
+      setIsLoading(true); // Set loading while fetching data
+    } else {
+      setIsLoading(false); // Loading complete
     }
   }, [dispatch, status]);
 
@@ -39,29 +47,18 @@ const ProductList: React.FC = () => {
     dispatch(toggleCategoryFilter(e.target.value));
     dispatch(filterAndSortProducts());
   };
-
-
-
   const handleAddToCart = (productId: number, quantity: number) => {
-    if (quantity < 1) {
-      setQuantityError('Quantity must be at least 1');
-    } else {
-      const product = products.find(p => p.id === productId);
+    const product = products.find(p => p.id === productId);
       if (product) {
         dispatch(addToCart({ ...product, quantity }));
         setAddedProductId(productId);
         setAddedProductClass(productId);
-        setQuantityError(null); // Clear any previous errors
 
-        // Reset the "Added" text after 2 seconds
         setTimeout(() => {
           setAddedProductId(null);
           setAddedProductClass(null);
         }, 2000);
-      } else {
-        setQuantityError('Product not found');
       }
-    }
   };
 
   const handlePageChange = (page: number) => {
@@ -73,9 +70,13 @@ const ProductList: React.FC = () => {
       dispatch(setPriceRangeFilter({ minPrice: value[0], maxPrice: value[1] }));
     }
   };
-  if (status === 'loading') return <p>Loading...</p>;
-  if (status === 'failed') return <p>{error}</p>;
+  if (isLoading) {
+    return <Loading />;
+  }
 
+  if (status === 'failed') {
+    return <p>{error}</p>;
+  }
   return (
     <>
       <Banner />

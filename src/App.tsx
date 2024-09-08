@@ -9,15 +9,17 @@ import Footer from './components/Footer';
 const App: React.FC = () => {
   return (
     <div className="App">
-      <Header/>
-     
-      <Routes>
-        <Route path="/" element={<ProductList />} />
-        <Route path="/cart" element={<Cart />} />
-       <Route path="/product/:id" element={<ProductDetail />} />
-      </Routes>
-<Footer/>
-    
+      <Header />
+      <div className='section'>
+
+        <Routes>
+          <Route path="/" element={<ProductList />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
+        </Routes>
+      </div>
+      <Footer />
+
     </div>
   );
 };

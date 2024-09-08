@@ -21,27 +21,26 @@ const Cart: React.FC = () => {
     dispatch(removeFromCart(id));
   };
 
-  if (items.length === 0) {
-    return <p>Your cart is empty</p>;
-  }
-
-  return (
+   return (
     <div className="cart-page">
       <div className='heading'>
         <div className="container">
-
           <h1>Your Shopping Bag</h1>
         </div>
       </div>
       <div className="container">
-
-
+      {items.length === 0 ? (
+          <div className="no-data">
+            <p>Your cart is empty</p>
+            </div>
+        ) : (
+    
+      
         <div className='row'>
           <div className='col-md-8'>
             <ul>
               {items.map(item => (
                 <li key={item.id}>
-
                   <div className='card-item'>
                     <div className="image-thumbnail">
                       <img src={item.image} alt={item.title} />
@@ -50,7 +49,6 @@ const Cart: React.FC = () => {
                       <h3>{item.title}</h3>
                       <p>{item.category}</p>
                       <p>${item.price}</p>
-
                     </div>
                   </div>
                 <div className='d-flex justify-content-between align-items-center'>
@@ -86,11 +84,9 @@ const Cart: React.FC = () => {
             <div className="d-flex justify-content-center" >
             <button type="button" disabled> Checkout</button>
             </div>
-           
-
           </div></div>
         </div>
-
+  )}
       </div>
     </div>
   );
