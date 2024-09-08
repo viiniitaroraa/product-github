@@ -78,7 +78,7 @@
     button{
         border: 1px solid #efefef;
         border-radius: 4px;
-        padding: 10px;
+        padding: 0;
         background: #fafafa;
         width: 40px;
         height: 40px;
@@ -93,7 +93,7 @@
             background: #efefef;
         }
         &.active{
-            background: #fc884f;
+            background: $secondary-color;
             color: #fff;
         }
         img{

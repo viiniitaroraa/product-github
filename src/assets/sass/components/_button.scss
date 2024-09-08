@@ -13,14 +13,15 @@
 
   &.btn-primary {
     color: $white;
-    background: $primary-color;
+    background: $secondary-color;
 
     &:hover {
-      background: $dark-bg;
+      opacity: 0.8;
+      background: $secondary-color;
     }
   }
   &.sm{
     font-size: 14px;
-    padding: 8px 14px;
+    padding: 8px 10px;
   }
 }

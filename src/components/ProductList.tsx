@@ -171,7 +171,7 @@ const ProductList: React.FC = () => {
               ) : (
                 <div className="row">
                   {filteredProducts.map(product => (
-                    <div className="col-md-6 col-lg-4">
+                    <div className="col-6 col-md-6 col-lg-4">
                       <div className="card" key={product.id} title={product.title}>
                         <Link to={`/product/${product.id}`}>
                           <img src={product.image ? product.image : Placeholderimg}
