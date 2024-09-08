@@ -43,24 +43,44 @@ const ProductDetail: React.FC = () => {
     }
   };
 
+  // Handler for the plus button
+  const handleIncrement = () => {
+    setQuantity(prevQuantity => prevQuantity + 1);
+    setQuantityError(null); // Clear any errors when valid
+  };
+
+  // Handler for the minus button
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity(prevQuantity => prevQuantity - 1);
+      setQuantityError(null); // Clear any errors when valid
+    }
+  };
+
   return (
     <div>
       <h1>{product.title}</h1>
       <img src={product.image} alt={product.title} />
       <p>${product.price}</p>
       <p>Category: {product.category}</p>
+      <p>Rating: {product.rating.rate} / 5 ({product.rating.count} reviews)</p>
 
-      {/* Quantity Input */}
-      <label>
-        Quantity:
-        <input
-          type="number"
-          value={quantity}
-          onChange={handleQuantityChange}
-          min="1"
-        />
-      </label>
-      {quantityError && <p style={{ color: 'red' }}>{quantityError}</p>} {/* Show error message */}
+      {/* Quantity Input with Plus and Minus Buttons */}
+      <div>
+        <label>Quantity:</label>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <button onClick={handleDecrement} disabled={quantity <= 1}>-</button> {/* Disable minus button when quantity is 1 */}
+          <input
+            type="number"
+            value={quantity}
+            onChange={handleQuantityChange}
+            min="1"
+            style={{ width: '50px', textAlign: 'center' }}
+          />
+          <button onClick={handleIncrement}>+</button>
+        </div>
+        {quantityError && <p style={{ color: 'red' }}>{quantityError}</p>} {/* Show error message */}
+      </div>
 
       {/* Add to Cart Button */}
       <button onClick={handleAddToCart}>Add to Cart</button>

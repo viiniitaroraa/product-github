@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-// Define the type for the cart item
 interface CartItem {
   id: number;
   title: string;
@@ -10,14 +9,14 @@ interface CartItem {
   quantity: number;
 }
 
-// Define the cart state
+
 interface CartState {
   items: CartItem[];
   totalQuantity: number;
   totalPrice: number;
 }
 
-// Load cart from localStorage if available
+
 const loadCartFromLocalStorage = (): CartState => {
   try {
     const storedCart = localStorage.getItem('cart');
@@ -27,7 +26,7 @@ const loadCartFromLocalStorage = (): CartState => {
   } catch (error) {
     console.error('Failed to load cart from localStorage', error);
   }
-  return { items: [], totalQuantity: 0, totalPrice: 0 }; // Default cart state
+  return { items: [], totalQuantity: 0, totalPrice: 0 }; 
 };
 
 // Save cart to localStorage
@@ -54,7 +53,7 @@ const cartSlice = createSlice({
       }
       state.totalQuantity += 1;
       state.totalPrice += action.payload.price;
-      saveCartToLocalStorage(state); // Save to localStorage after every change
+      saveCartToLocalStorage(state); 
     },
     updateQuantity(state, action: PayloadAction<{ id: number, quantity: number }>) {
       const { id, quantity } = action.payload;

@@ -22,7 +22,7 @@ const ProductList: React.FC = () => {
   const { filteredProducts, status, error, filters, sort, pagination } = useSelector((state: RootState) => state.products);
   const { products } = useSelector((state: RootState) => state.products);
   const [isLoading, setIsLoading] = useState(true)
-  const [quantityError, setQuantityError] = useState<string | null>(null);
+
   const [addedProductId, setAddedProductId] = useState<number | null>(null);
   const [addedProductClass, setAddedProductClass] = useState<number | null>(null);
   useEffect(() => {
@@ -81,10 +81,10 @@ const ProductList: React.FC = () => {
           <div className='container'>
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
-                <a href="/">Home</a>
+              <Link to="/">Home</Link>
               </li>
               <li className="breadcrumb-item">
-                <a href="/">Products</a>
+              <Link to="/">Products</Link>
               </li>
               <li className="breadcrumb-item active" aria-current="page">
                 Fashion
