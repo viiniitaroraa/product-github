@@ -37,7 +37,7 @@ const Cart: React.FC = () => {
 
 
         <div className='row'>
-          <div className='col-md-9'>
+          <div className='col-md-8'>
             <ul>
               {items.map(item => (
                 <li key={item.id}>
@@ -53,27 +53,40 @@ const Cart: React.FC = () => {
 
                     </div>
                   </div>
-                  <div className='quantity'>
+                <div className='d-flex justify-content-between align-items-center'>
+                 <div className='quantity'>
                     <button onClick={() => handleQuantityChange(item.id, item.quantity - 1)}>-</button>
                     <span>{item.quantity}</span>
                     <button onClick={() => handleQuantityChange(item.id, item.quantity + 1)}>+</button>
                   </div>
                   <button className='delete-icon' onClick={() => handleRemoveItem(item.id)}><img src={Delete} alt="delete"/></button>
-
+                 </div>
                 </li>
               ))}
             </ul>
           </div>
-          <div className='col-md-3'> <div className="price-section">
+          <div className='col-md-4'> <div className="price-section">
             <h4>Price Summary</h4>
             <div className='d-flex justify-content-between'>
-              <p>Total Items: </p>
-              <p><strong>{totalQuantity}</strong></p>
+              <p>Product Count </p>
+              <p><strong>{totalQuantity} Items</strong></p>
             </div>
             <div className='d-flex justify-content-between'>
-              <p>Total Price: </p>
+              <p>Estimated Shipping </p>
+              <p><strong>0.00</strong></p>
+            </div>
+            <div className='d-flex justify-content-between'>
+              <p>Gift Card </p>
+              <p><strong>0.00</strong></p>
+            </div>
+            <div className='d-flex justify-content-between'>
+              <p><strong>Total Price: </strong></p>
               <p><strong>${totalPrice.toFixed(2)}</strong></p>
             </div>
+            <div className="d-flex justify-content-center" >
+            <button type="button" disabled> Checkout</button>
+            </div>
+           
 
           </div></div>
         </div>

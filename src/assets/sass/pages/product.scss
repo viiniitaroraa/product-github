@@ -118,6 +118,10 @@
         font-size: 40px;
        
     }
+    ul{
+        margin: 0;
+        padding: 0;
+    }
     ul li {
         display: flex;
         justify-content: space-between;
@@ -128,10 +132,16 @@
         &:last-child{
             border: none;
         }
+        @media screen and (max-width: 767px) {
+            display: block;
+        }
         .card-item {
             display: flex;
             width:70%;
-
+            @media screen and (max-width: 767px) {
+                width: 100%;
+                margin-bottom: 16px;
+            }
             .image-thumbnail {
                 position: relative;
                 justify-content: center;
@@ -156,7 +166,9 @@
 
             .content {
                 width: 60%;
-
+                @media screen and (max-width: 767px) {
+                    width: 80%;
+                }
                 h3 {
                     font-size: 14px;
                     font-weight: bold;
@@ -174,8 +186,8 @@
             align-items: center;
             button{
                 border: 1px solid #efefef;
-                width: 40px;
-                height: 40px;
+                width: 36px;
+                height: 36px;
                 display: flex;
                 font-size: 24px;
                 align-items: center;
@@ -187,8 +199,8 @@
               }
             }
             span{
-                width: 60px;
-                height: 40px;
+                width: 50px;
+                height: 36px;
                 border-radius: 4px;
                 margin: 0 6px;
                 display: flex;
@@ -201,9 +213,43 @@
         .delete-icon{
             background: transparent;
             border: none;
-            margin-top: 6px;
+            margin:0 30px;
+            @media screen and (max-width: 767px) {
+                margin: 0;
+            }
             img{
                 width: 20px;
+            }
+        }
+    }
+    .price-section{
+        border:2px solid #dbdbdb;
+        border-radius: 6px;
+        padding: 20px;
+        h4{
+            font-size:16px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            
+        }
+        button{
+            background: #f57537;
+            border-radius: 20px;
+            color: #fff;
+            border: none;
+            padding: 6px 20px;
+            min-width: 180px;
+            margin: 20px 0 10px 0;
+
+            &:disabled{
+                opacity: 0.5;
+            }
+        }
+        p{
+            font-size: 14px;
+            color: #666;
+            strong{
+                color: $primary-color;
             }
         }
     }

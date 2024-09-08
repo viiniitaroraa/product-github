@@ -5,6 +5,7 @@ import ProductList from './components/ProductList';
 import ProductDetail from './components/ProductDetail';
 import Cart from './components/Cart';
 import Header from './components/Header';
+import Footer from './components/Footer';
 const App: React.FC = () => {
   return (
     <div className="App">
@@ -15,7 +16,7 @@ const App: React.FC = () => {
         <Route path="/cart" element={<Cart />} />
        <Route path="/product/:id" element={<ProductDetail />} />
       </Routes>
-
+<Footer/>
     
     </div>
   );
